@@ -84,8 +84,16 @@ public class Game {
 		int total = 0;
 		for (Card c : p.getPlayerHand().getHand()) {
 			total = total + c.getValue();
-		}
-
+//			if (c.getRank().equals("ACE")  && total > 21) {
+//				total = total - 10;
+//			}
+//		}
+		for (Card d : p.getPlayerHand().getHand()) 
+			if (d.getRank().ordinal() == Rank.ACE.ordinal()  && total > 21) {
+				total = total - 10;
+			}
+		
+	}
 		return total;
 	}
 
@@ -94,11 +102,17 @@ public class Game {
 		for (Card c : dealer.getDealerHand().getHand()) {
 			total = total + c.getValue();
 		}
+		for (Card d : dealer.getDealerHand().getHand()) 
+			if (d.getRank().ordinal() == Rank.ACE.ordinal()  && total > 21) {
+				total = total - 10;
+			}
+		
+
 		return total;
 	}
 
 	public boolean blackJackCheck(Player player, Dealer dealer, Game game) {
-		boolean gameEnder = false;
+		
 		totalOfPlayerHand(player);
 		totalOfDealerHand(dealer);
 		if (totalOfPlayerHand(player) == 21) {
@@ -134,9 +148,10 @@ public class Game {
 				// System.out.println(game.totalOfDealerHand(dealer));
 			}
 			System.out.println("The dealer has a total of " + game.totalOfDealerHand(dealer));
-			if (totalOfDealerHand(dealer) > 21) {
-				System.out.println("Dealer has busted, You Win");
-			}
+
+		}
+		if (totalOfDealerHand(dealer) > 21) {
+			System.out.println("Dealer has busted, You Win");
 		}
 	}
 }

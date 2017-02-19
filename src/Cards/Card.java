@@ -3,6 +3,14 @@ package Cards;
 
 public class Card {
 
+		public Rank getRank() {
+		return rank;
+	}
+
+	public void setRank(Rank rank) {
+		this.rank = rank;
+	}
+
 		private Rank rank;
 		private Suit suit;
 		private int value;

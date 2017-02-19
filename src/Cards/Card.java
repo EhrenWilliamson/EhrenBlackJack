@@ -11,6 +11,12 @@ public class Card {
 		this.rank = rank;
 	}
 
+		public int getValue() {
+		return value;
+	}
+
+
+
 		private Rank rank;
 		private Suit suit;
 		private int value;
@@ -60,11 +66,5 @@ public class Card {
 
 		}
 
-		public int getValue() {
-			return value;
-		}
 
-		public void setValue(int value) {
-			this.value = value;
-		}
 }

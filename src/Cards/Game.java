@@ -11,10 +11,7 @@ public class Game {
 		dealer.shuffle();
 		System.out.println("The dealer is drawing cards from the deck");
 
-		dealer.draw();
-		dealer.draw();
-		dealer.draw();
-		dealer.draw();
+
 
 		Player player = new Player();
 		player.getPlayerHand().addCard(dealer.draw());

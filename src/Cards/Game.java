@@ -11,8 +11,6 @@ public class Game {
 		dealer.shuffle();
 		System.out.println("The dealer is drawing cards from the deck");
 
-
-
 		Player player = new Player();
 		player.getPlayerHand().addCard(dealer.draw());
 		dealer.getDealerHand().addCard(dealer.draw());
@@ -33,7 +31,7 @@ public class Game {
 
 			if (game.totalOfPlayerHand(player) <= 21) {
 
-				game.dealerTurn(dealer, game); // Dealer's turen
+				game.dealerTurn(dealer, game); // Dealer's turn
 			}
 
 			if (game.totalOfPlayerHand(player) <= 21 && game.totalOfDealerHand(dealer) <= 21) {
@@ -52,6 +50,10 @@ public class Game {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Would you like to hit or stay? Please type hit or stay");
 		String answer = input.next();
+		while (!(answer.equals("hit")) && !(answer.equals("stay"))) {
+			System.out.println("Would you like to hit or stay? Please type hit or stay");
+			answer = input.next();
+		}
 		while (answer.equals("hit")) {
 			player.getPlayerHand().addCard(dealer.draw());
 			for (Card c : player.getPlayerHand().getHand()) {
@@ -79,37 +81,62 @@ public class Game {
 
 	public int totalOfPlayerHand(Player p) {
 		int total = 0;
+		int counter = 0;
+		int numberOfAces=0;
+		for (Card d : p.getPlayerHand().getHand()) {
+			if (d.getRank().ordinal() == Rank.ACE.ordinal() && d.getValue() ==11) {
+				numberOfAces++;
+			}
+		}
 		for (Card c : p.getPlayerHand().getHand()) {
 			total = total + c.getValue();
-//			if (c.getRank().equals("ACE")  && total > 21) {
-//				total = total - 10;
-//			}
-//		}
-		for (Card d : p.getPlayerHand().getHand()) 
-			if (d.getRank().ordinal() == Rank.ACE.ordinal()  && total > 21) {
-				total = total - 10;
+
+			if (total > 21) {
+				for (Card d : p.getPlayerHand().getHand()) {
+					if (d.getRank().ordinal() == Rank.ACE.ordinal()) {
+						if(numberOfAces>counter && total>21){
+						counter++;
+						total = (total - 10);
+						break;
+						}
+
+					}
+				}
 			}
-		
-	}
+		}
 		return total;
 	}
 
 	public int totalOfDealerHand(Dealer dealer) {
 		int total = 0;
+		int counter = 0;
+		int numberOfAces=0;
+		for (Card d : dealer.getDealerHand().getHand()) {
+			if (d.getRank().ordinal() == Rank.ACE.ordinal() && d.getValue() ==11) {
+				numberOfAces++;
+			}
+		}
 		for (Card c : dealer.getDealerHand().getHand()) {
 			total = total + c.getValue();
-		}
-		for (Card d : dealer.getDealerHand().getHand()) 
-			if (d.getRank().ordinal() == Rank.ACE.ordinal()  && total > 21) {
-				total = total - 10;
-			}
-		
 
+			if (total > 21) {
+				for (Card d : dealer.getDealerHand().getHand()) {
+					if (d.getRank().ordinal() == Rank.ACE.ordinal()) {
+						if(numberOfAces>counter && total>21){
+						counter++;
+						total = (total - 10);
+						break;
+						}
+
+					}
+				}
+			}
+		}
 		return total;
 	}
 
 	public boolean blackJackCheck(Player player, Dealer dealer, Game game) {
-		
+
 		totalOfPlayerHand(player);
 		totalOfDealerHand(dealer);
 		if (totalOfPlayerHand(player) == 21) {

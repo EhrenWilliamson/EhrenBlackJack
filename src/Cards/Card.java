@@ -7,9 +7,6 @@ public class Card {
 		return rank;
 	}
 
-	public void setRank(Rank rank) {
-		this.rank = rank;
-	}
 
 		public int getValue() {
 		return value;
